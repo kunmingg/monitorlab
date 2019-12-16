@@ -1,0 +1,25 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: monitorlab
+  name: monitorlab
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: monitorlab
+  template:
+    metadata:
+      labels:
+        app: monitorlab
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+    spec:
+      containers:
+        - image: gcr.io/kunming-dev5/monitorlab:client01
+          name: client
+          ports:
+            - containerPort: 8080
